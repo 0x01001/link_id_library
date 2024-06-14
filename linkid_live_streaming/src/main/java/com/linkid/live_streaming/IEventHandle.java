@@ -31,5 +31,5 @@ public interface IEventHandle {
     public void onPlayerStateUpdate(String streamID, int playerState, int errorCode, JSONObject extendedData);
 
     // The callback to report the delivery result of the Broadcast Message
-    void onSendBroadcastMessageResult(int errorCode, long messageID);
+    void onSendBroadcastMessageResult(int errorCode, String messageID);
 }
