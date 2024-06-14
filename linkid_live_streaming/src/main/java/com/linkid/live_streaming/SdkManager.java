@@ -71,7 +71,7 @@ public class SdkManager {
 //        ZegoExpressEngine.getEngine().startPreview(previewCanvas);
 //    }
 
-    public Fragment startPreview() {
+    public Fragment createFragment() {
         ZegoUIKitPrebuiltLiveStreamingConfig config;
         if (data.isHost) {
             config = ZegoUIKitPrebuiltLiveStreamingConfig.host();
