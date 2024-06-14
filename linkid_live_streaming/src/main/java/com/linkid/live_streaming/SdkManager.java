@@ -65,17 +65,18 @@ public class SdkManager {
         return ZegoUIKitPrebuiltLiveStreamingFragment.newInstance(appID, appSign, data.userID, data.userName, data.roomID, config);
     }
 
-//    private void startPublishing(String streamID, String cdnURL) {
-//        // Start publishing the stream
-//        ZegoExpressEngine.getEngine().addPublishCdnUrl(streamID, cdnURL, (int errorCode) -> {
-//            if (errorCode == 0) {
-//                Log.d("LiveStream", "CDN URL added successfully");
-//            } else {
-//                Log.d("LiveStream", "Failed to add CDN URL: " + errorCode);
-//            }
-//        });
-//    }
-//
+    public void addPublishCdnUrl(String cdnURL) {
+        String streamID = data.roomID + "_" + data.userID + "_main";
+        // Start publishing the stream
+        ZegoExpressEngine.getEngine().addPublishCdnUrl(streamID, cdnURL, (int errorCode) -> {
+            if (errorCode == 0) {
+                Log.d("LiveStream", "CDN URL added successfully");
+            } else {
+                Log.d("LiveStream", "Failed to add CDN URL: " + errorCode);
+            }
+        });
+    }
+
 //    public void stopPreview() {
 //        ZegoExpressEngine.getEngine().stopPreview();
 //    }
@@ -181,14 +182,7 @@ public class SdkManager {
                     if (reason == ZegoRoomStateChangedReason.LOGINED) {
                         // Stream has started
                         Log.d("LiveStream", "Stream started: " + roomID);
-                        String streamId = data.roomID + "_" + data.userID + "_main";
-                        ZegoExpressEngine.getEngine().addPublishCdnUrl(streamId, "cdnURL", (int errorCode) -> {
-                            if (errorCode == 0) {
-                                Log.d("LiveStream", "CDN URL added successfully");
-                            } else {
-                                Log.d("LiveStream", "Failed to add CDN URL: " + errorCode);
-                            }
-                        });
+                        addPublishCdnUrl("rtmp://a.rtmp.youtube.com/live2/svkf-45em-58ua-f0x0-dupc"); // test
                     } else if (reason == ZegoRoomStateChangedReason.LOGOUT) {
                         // Stream has stopped
                         Log.d("LiveStream", "Stream stopped: " + roomID);
