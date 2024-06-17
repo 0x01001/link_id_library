@@ -119,9 +119,9 @@ public class SdkManager {
 //        data.hostView.setVisibility(View.GONE);
 //    }
 
-    public void sendMessage(String roomId, String msg){
+    public void sendHeart(){
         if (onlineUsers.size() < 500){
-            ZegoExpressEngine.getEngine().sendBroadcastMessage(roomId, msg, new IZegoIMSendBroadcastMessageCallback() {
+            ZegoExpressEngine.getEngine().sendBroadcastMessage(data.roomID, "message", new IZegoIMSendBroadcastMessageCallback() {
                 /**  The callback to report the delivery result of the Broadcast Message */
                 @Override
                 public void onIMSendBroadcastMessageResult(int errorCode, long messageID) {
@@ -130,7 +130,7 @@ public class SdkManager {
                 }
             });
         }else{
-            ZegoExpressEngine.getEngine().sendBarrageMessage(roomId, msg, new IZegoIMSendBarrageMessageCallback(){
+            ZegoExpressEngine.getEngine().sendBarrageMessage(data.roomID, "message", new IZegoIMSendBarrageMessageCallback(){
                 /** The callback to report the delivery result of the Barrage Message */
                 @Override
                 public void onIMSendBarrageMessageResult(int errorCode, String messageID) {
@@ -182,7 +182,6 @@ public class SdkManager {
                     if (reason == ZegoRoomStateChangedReason.LOGINED) {
                         // Stream has started
                         Log.d("LiveStream", "Stream started: " + roomID);
-                        addPublishCdnUrl("rtmp://a.rtmp.youtube.com/live2/svkf-45em-58ua-f0x0-dupc"); // test
                     } else if (reason == ZegoRoomStateChangedReason.LOGOUT) {
                         // Stream has stopped
                         Log.d("LiveStream", "Stream stopped: " + roomID);
