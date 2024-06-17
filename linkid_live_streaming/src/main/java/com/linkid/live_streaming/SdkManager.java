@@ -4,9 +4,6 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.fragment.app.Fragment;
-
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,16 +11,10 @@ import im.zego.zegoexpress.ZegoExpressEngine;
 import im.zego.zegoexpress.callback.IZegoEventHandler;
 import im.zego.zegoexpress.callback.IZegoIMSendBarrageMessageCallback;
 import im.zego.zegoexpress.callback.IZegoIMSendBroadcastMessageCallback;
-import im.zego.zegoexpress.constants.ZegoPlayerState;
-import im.zego.zegoexpress.constants.ZegoPublisherState;
-import im.zego.zegoexpress.constants.ZegoRoomStateChangedReason;
 import im.zego.zegoexpress.constants.ZegoScenario;
 import im.zego.zegoexpress.constants.ZegoUpdateType;
 import im.zego.zegoexpress.entity.ZegoEngineProfile;
-import im.zego.zegoexpress.entity.ZegoStream;
 import im.zego.zegoexpress.entity.ZegoUser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zegocloud.uikit.prebuilt.livestreaming.ZegoUIKitPrebuiltLiveStreamingConfig;
 import com.zegocloud.uikit.prebuilt.livestreaming.ZegoUIKitPrebuiltLiveStreamingFragment;
 
@@ -161,7 +152,7 @@ public class SdkManager {
             // Callback for updates on the status of other users in the room.
             // Users can only receive callbacks when the isUserStatusNotify property of ZegoRoomConfig is set to `true` when logging in to the room (loginRoom).
             public void onRoomUserUpdate(String roomID, ZegoUpdateType updateType, ArrayList<ZegoUser> userList) {
-                Log.d("onRoomUserUpdate: ", updateType.toString());
+//                Log.d("onRoomUserUpdate: ", updateType.toString());
                 if (updateType == ZegoUpdateType.ADD) {
                     onlineUsers.addAll(userList);
                 } else if (updateType == ZegoUpdateType.DELETE) {
