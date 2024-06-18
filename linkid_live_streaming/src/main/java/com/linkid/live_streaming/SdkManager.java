@@ -37,10 +37,10 @@ public class SdkManager {
         startListenEvent();
     }
 
-    public void createEngine(Application application) {
+    public void createEngine(Application application, long appID, String appSign) {
         ZegoEngineProfile profile = new ZegoEngineProfile();
-        profile.appID = data.appID;
-        profile.appSign = data.appSign;
+        profile.appID = appID;
+        profile.appSign = appSign;
         profile.scenario = ZegoScenario.BROADCAST; // General scenario.
         profile.application = application;
         ZegoExpressEngine.createEngine(profile, null);

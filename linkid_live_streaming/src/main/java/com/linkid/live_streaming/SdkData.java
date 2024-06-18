@@ -4,8 +4,6 @@ package com.linkid.live_streaming;
 //import android.view.View;
 
 public class SdkData {
-    public long appID;
-    public String appSign;
     public String userID;
     public String userName;
     public String roomID;
