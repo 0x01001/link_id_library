@@ -2,9 +2,14 @@ package com.linkid.live_streaming;
 
 import android.app.Application;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import im.zego.zegoexpress.ZegoExpressEngine;
@@ -15,14 +20,14 @@ import im.zego.zegoexpress.constants.ZegoScenario;
 import im.zego.zegoexpress.constants.ZegoUpdateType;
 import im.zego.zegoexpress.entity.ZegoEngineProfile;
 import im.zego.zegoexpress.entity.ZegoUser;
+
 import com.zegocloud.uikit.prebuilt.livestreaming.ZegoUIKitPrebuiltLiveStreamingConfig;
 import com.zegocloud.uikit.prebuilt.livestreaming.ZegoUIKitPrebuiltLiveStreamingFragment;
 
 public class SdkManager {
     private SdkData data;
     private IEventHandle eventHandle;
-    private long appID = 18387906;
-    private String appSign = "f05a167ef94557bcb846cbfdba5ee7af21f834e86432b6ed6f78a44b79341dc2";
+
     private List<ZegoUser> onlineUsers = new ArrayList<>();
 
     public void init(SdkData data, IEventHandle eventHandle) {
@@ -34,8 +39,8 @@ public class SdkManager {
 
     public void createEngine(Application application) {
         ZegoEngineProfile profile = new ZegoEngineProfile();
-        profile.appID = appID;
-        profile.appSign = appSign;
+        profile.appID = data.appID;
+        profile.appSign = data.appSign;
         profile.scenario = ZegoScenario.BROADCAST; // General scenario.
         profile.application = application;
         ZegoExpressEngine.createEngine(profile, null);
@@ -54,8 +59,42 @@ public class SdkManager {
             config =  ZegoUIKitPrebuiltLiveStreamingConfig.audience();
         }
 
-        return ZegoUIKitPrebuiltLiveStreamingFragment.newInstance(appID, appSign, data.userID, data.userName, data.roomID, config);
+//        config.bottomMenuBarConfig = new ZegoBottomMenuBarConfig(
+//                new ArrayList<>(Arrays.asList(ZegoMenuBarButtonName.TOGGLE_CAMERA_BUTTON, ZegoMenuBarButtonName.TOGGLE_MICROPHONE_BUTTON, ZegoMenuBarButtonName.SWITCH_CAMERA_FACING_BUTTON)),
+//                new ArrayList<>(Arrays.asList(ZegoMenuBarButtonName.TOGGLE_CAMERA_BUTTON, ZegoMenuBarButtonName.TOGGLE_MICROPHONE_BUTTON, ZegoMenuBarButtonName.SWITCH_CAMERA_FACING_BUTTON, ZegoMenuBarButtonName.COHOST_CONTROL_BUTTON)),
+//                new ArrayList<>(Collections.singletonList(ZegoMenuBarButtonName.COHOST_CONTROL_BUTTON)));
+
+        Fragment fragment = ZegoUIKitPrebuiltLiveStreamingFragment.newInstance(data.appID, data.appSign, data.userID, data.userName, data.roomID, config);
+
+//        addHeartButton(fragment);
+
+        return fragment;
     }
+
+//    private void addHeartButton(Fragment fragment){
+//        // Create a new Button
+//        Button button = new Button(getActivity());
+//        button.setText("Click Me");
+//
+//        // Create layout parameters for the button
+//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+//                RelativeLayout.LayoutParams.WRAP_CONTENT,
+//                RelativeLayout.LayoutParams.WRAP_CONTENT
+//        );
+//        params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+//        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+//
+//        // Add the button to the RelativeLayout
+//        relativeLayout.addView(button, params);
+//
+//        // Set a click listener on the button
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Handle button click
+//            }
+//        });
+//    }
 
     public void addPublishCdnUrl(String cdnURL) {
         String streamID = data.roomID + "_" + data.userID + "_main";
