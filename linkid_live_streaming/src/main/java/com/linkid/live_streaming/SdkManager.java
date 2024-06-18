@@ -36,7 +36,7 @@ public class SdkManager {
         Log.d("SdkManager", "init sdk...");
         this.data = data;
         this.eventHandle = eventHandle;
-        startListenEvent();
+//        startListenEvent();
     }
 
     public void createEngine(Application application, long appID, String appSign) {
@@ -55,7 +55,7 @@ public class SdkManager {
         ZegoExpressEngine.destroyEngine(null);
     }
 
-    public Fragment createFragment() {
+    public Fragment createFragment(long appID, String appSign) {
         ZegoUIKitPrebuiltLiveStreamingConfig config;
         if (data.isHost) {
             config = ZegoUIKitPrebuiltLiveStreamingConfig.host();
@@ -68,11 +68,7 @@ public class SdkManager {
 //                new ArrayList<>(Arrays.asList(ZegoMenuBarButtonName.TOGGLE_CAMERA_BUTTON, ZegoMenuBarButtonName.TOGGLE_MICROPHONE_BUTTON, ZegoMenuBarButtonName.SWITCH_CAMERA_FACING_BUTTON, ZegoMenuBarButtonName.COHOST_CONTROL_BUTTON)),
 //                new ArrayList<>(Collections.singletonList(ZegoMenuBarButtonName.COHOST_CONTROL_BUTTON)));
 
-        Fragment fragment = ZegoUIKitPrebuiltLiveStreamingFragment.newInstance(this.appID, this.appSign, data.userID, data.userName, data.roomID, config);
-
-//        addHeartButton(fragment);
-
-        return fragment;
+        return ZegoUIKitPrebuiltLiveStreamingFragment.newInstance(appID, appSign, data.userID, data.userName, data.roomID, config);
     }
 
 //    private void addHeartButton(Fragment fragment){
