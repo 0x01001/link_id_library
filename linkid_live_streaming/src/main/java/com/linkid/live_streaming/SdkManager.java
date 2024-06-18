@@ -27,6 +27,8 @@ import com.zegocloud.uikit.prebuilt.livestreaming.ZegoUIKitPrebuiltLiveStreaming
 public class SdkManager {
     private SdkData data;
     private IEventHandle eventHandle;
+    private long appID;
+    private String appSign;
 
     private List<ZegoUser> onlineUsers = new ArrayList<>();
 
@@ -38,6 +40,8 @@ public class SdkManager {
     }
 
     public void createEngine(Application application, long appID, String appSign) {
+        this.appID = appID;
+        this.appSign = appSign;
         ZegoEngineProfile profile = new ZegoEngineProfile();
         profile.appID = appID;
         profile.appSign = appSign;
@@ -64,7 +68,7 @@ public class SdkManager {
 //                new ArrayList<>(Arrays.asList(ZegoMenuBarButtonName.TOGGLE_CAMERA_BUTTON, ZegoMenuBarButtonName.TOGGLE_MICROPHONE_BUTTON, ZegoMenuBarButtonName.SWITCH_CAMERA_FACING_BUTTON, ZegoMenuBarButtonName.COHOST_CONTROL_BUTTON)),
 //                new ArrayList<>(Collections.singletonList(ZegoMenuBarButtonName.COHOST_CONTROL_BUTTON)));
 
-        Fragment fragment = ZegoUIKitPrebuiltLiveStreamingFragment.newInstance(data.appID, data.appSign, data.userID, data.userName, data.roomID, config);
+        Fragment fragment = ZegoUIKitPrebuiltLiveStreamingFragment.newInstance(this.appID, this.appSign, data.userID, data.userName, data.roomID, config);
 
 //        addHeartButton(fragment);
 
