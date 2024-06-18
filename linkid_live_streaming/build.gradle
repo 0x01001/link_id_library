@@ -1,27 +1,4 @@
-//group 'com.linkid.live_streaming'
-//version '1.0.0'
-//
-//buildscript {
-//    repositories {
-//        google()
-//        mavenCentral()
-//    }
-////    dependencies {
-////        classpath 'com.android.tools.build:gradle:7.1.2'
-////    }
-//}
-//
-//rootProject.allprojects {
-//    repositories {
-//        google()
-//        mavenCentral()
-//        maven { url 'https://storage.zego.im/maven' }
-//        maven { url "https://jitpack.io" }
-//    }
-//}
-
 apply plugin: 'com.android.library'
-//apply plugin: 'maven-publish'
 
 android {
     compileSdk 32
@@ -29,12 +6,6 @@ android {
     defaultConfig {
         minSdk 21
         targetSdk 32
-
-//        ndk {
-//            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
-//        }
-//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-//        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -52,43 +23,14 @@ android {
         viewBinding true
     }
     namespace 'com.linkid.live_streaming'
-
-//    sourceSets {
-//        main {
-//            jniLibs.srcDirs = ['libs']
-//        }
-//    }
 }
 
 dependencies {
-//    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-//    testImplementation 'junit:junit:4.13.2'
-//    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.3'
-//    api 'com.github.ZEGOCLOUD:zego_uikit_android:[2.9.6,)'
-    api 'com.github.ZEGOCLOUD:zego_uikit_prebuilt_live_streaming_android:[2.9.2,)'
+//    api 'com.github.ZEGOCLOUD:zego_uikit_prebuilt_live_streaming_android:[2.9.2,)'
+    implementation 'com.github.ZEGOCLOUD:zego_uikit_prebuilt_live_streaming_android:+'
 }
 
-//task createFatAar(type: Zip) {
-//    def releaseAarPath = "${buildDir}/outputs/aar/${project.name}-release.aar"
-//
-//    from { zipTree(releaseAarPath) }
-//    from {
-//        configurations.releaseRuntimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-//    }
-//
-//    archiveBaseName.set("${project.name}-fat")
-//    archiveExtension.set('aar')
-//    destinationDirectory.set(file("${buildDir}/outputs/aar"))
-//    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-//}
-//
-//afterEvaluate {
-//    tasks.named('assembleRelease').configure {
-//        finalizedBy createFatAar
-//    }
-//}
