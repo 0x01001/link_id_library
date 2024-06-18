@@ -21,6 +21,7 @@ import im.zego.zegoexpress.constants.ZegoUpdateType;
 import im.zego.zegoexpress.entity.ZegoEngineProfile;
 import im.zego.zegoexpress.entity.ZegoUser;
 
+import com.zegocloud.uikit.ZegoUIKit;
 import com.zegocloud.uikit.prebuilt.livestreaming.ZegoUIKitPrebuiltLiveStreamingConfig;
 import com.zegocloud.uikit.prebuilt.livestreaming.ZegoUIKitPrebuiltLiveStreamingFragment;
 
@@ -37,6 +38,7 @@ public class SdkManager {
         this.data = data;
         this.eventHandle = eventHandle;
 //        startListenEvent();
+//        ZegoUIKit.getSignalingPlugin().
     }
 
     public void createEngine(Application application, long appID, String appSign) {
@@ -45,7 +47,7 @@ public class SdkManager {
         ZegoEngineProfile profile = new ZegoEngineProfile();
         profile.appID = appID;
         profile.appSign = appSign;
-        profile.scenario = ZegoScenario.BROADCAST; // General scenario.
+        profile.scenario = ZegoScenario.DEFAULT; // General scenario.
         profile.application = application;
         ZegoExpressEngine.createEngine(profile, null);
     }
@@ -55,7 +57,7 @@ public class SdkManager {
         ZegoExpressEngine.destroyEngine(null);
     }
 
-    public Fragment createFragment(long appID, String appSign) {
+    public Fragment createFragment(Application application, long appID, String appSign) {
         ZegoUIKitPrebuiltLiveStreamingConfig config;
         if (data.isHost) {
             config = ZegoUIKitPrebuiltLiveStreamingConfig.host();
@@ -68,7 +70,9 @@ public class SdkManager {
 //                new ArrayList<>(Arrays.asList(ZegoMenuBarButtonName.TOGGLE_CAMERA_BUTTON, ZegoMenuBarButtonName.TOGGLE_MICROPHONE_BUTTON, ZegoMenuBarButtonName.SWITCH_CAMERA_FACING_BUTTON, ZegoMenuBarButtonName.COHOST_CONTROL_BUTTON)),
 //                new ArrayList<>(Collections.singletonList(ZegoMenuBarButtonName.COHOST_CONTROL_BUTTON)));
 
-        return ZegoUIKitPrebuiltLiveStreamingFragment.newInstance(appID, appSign, data.userID, data.userName, data.roomID, config);
+        Fragment fragment = ZegoUIKitPrebuiltLiveStreamingFragment.newInstance(appID, appSign, data.userID, data.userName, data.roomID, config);
+        createEngine(application,  appID,  appSign);
+        return fragment;
     }
 
 //    private void addHeartButton(Fragment fragment){
